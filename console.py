@@ -125,12 +125,12 @@ class HBNBCommand(cmd.Cmd):
         # split the command with 1st instance of "." [User, all()]
         class_list = line.split(".", 1)
         if len(class_list) < 2:
-            print("Uknown syntax: {}".format(line))
+            print("Unknown syntax: {}".format(line))
             return False
         # split the second command in class_list [all, )]
         command = class_list[1].split("(", 1)
         if len(command) < 2:
-            print("Uknown syntax: {}".format(line))
+            print("Unknown syntax: {}".format(line))
             return False
         # split the second command in command list with of "("
         class_id = command[1].split(")", 1)
@@ -145,10 +145,10 @@ class HBNBCommand(cmd.Cmd):
             print("Unknown syntax:{}".format(line))
             return False
         if method in self.no_id_list and not command[1].startswith(")"):
-            print("Uknown syntax:{}".format(line))
+            print("Unknown syntax:{}".format(line))
             return False
         if method in self.id_list and not command[1].endswith(")"):
-            print("Uknown syntax: {}".format(line))
+            print("Unknown syntax: {}".format(line))
             return False
 
         elif method == self.cmd_list[0]:  # all
