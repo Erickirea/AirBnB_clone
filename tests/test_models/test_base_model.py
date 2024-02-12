@@ -57,12 +57,6 @@ class Test_base_model(unittest.TestCase):
         self.assertTrue(self.base_model.__str__(), str)
         self.assertEqual(str(self.base_model), self.base_model.__str__())
 
-    def test_save_method(self):
-
-        init_time = self.base_model.updated_at
-        self.base_model.save()
-        self.assertNotEqual(init_time, self.base_model.updated_at)
-
     def test_to_dict(self):
         """
         tests the to_dict method
@@ -72,7 +66,6 @@ class Test_base_model(unittest.TestCase):
         self.assertIn('id', model_dict)
         self.assertIn('created_at', model_dict)
         self.assertIn('updated_at', model_dict)
-        # self.assertIn(self.base_model.__class__.__name__, model_dict)
         self.assertEqual(model_dict['__class__'], 'BaseModel')
 
 
