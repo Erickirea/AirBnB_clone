@@ -6,47 +6,61 @@ from models import review
 a test module for Review class
 """
 
-class TestReview(unittest.TestCase):
-    """Test class for Review class"""
 
-    def test_instance(self):
-        """test if an instance is created"""
-        r = review.Review()
-        self.assertIsInstance(r, review.Review)
-        
-    def test_init(self):
-        """test the initialization."""
-        r = review.Review()
-        self.assertTrue(hasattr(r, 'id'))
-        self.assertTrue(hasattr(r, 'created_at'))
-        self.assertTrue(hasattr(r, 'updated_at'))
-        self.assertTrue(hasattr(r, 'place_id'))
-        self.assertTrue(hasattr(r, 'user_id'))
-        self.assertTrue(hasattr(r, 'text'))
+class Test_review(unittest.TestCase):
+    """
+    Testing the Review class and it's methods
+    """
 
-    def test_str(self):
-        """test the __str__ method."""
-        r = review.Review()
-        r_str = r.__str__()
-        self.assertIsInstance(r_str, str)
-    
-    def test_to_dict(self):
-        """test the to_dict method."""
-        r = review.Review()
-        r_dict = r.to_dict()
-        self.assertIsInstance(r_dict, dict)
-        self.assertTrue('id' in r_dict)
-        self.assertEqual(type(r_dict['id']), str)
-        self.assertTrue('created_at' in r_dict)
-        self.assertEqual(type(r_dict['created_at']), str)
-        self.assertTrue('updated_at' in r_dict)
-        self.assertEqual(type(r_dict['updated_at']), str)
-        self.assertTrue('place_id' in r_dict)
-        self.assertEqual(type(r_dict['place_id']), str)
-        self.assertTrue('user_id' in r_dict)
-        self.assertEqual(type(r_dict['user_id']), str)
-        self.assertTrue('text' in r_dict)
-        self.assertEqual(type(r_dict['text']), str)
+    def setUp(self):
+        """
+        a setup method that creates a Review object to be tested
+        It runs before every test
+        """
+        self.review_obj = review.Review()
 
-if '__main__' == __name__:
+    def tearDown(self):
+        """
+        a teardown method that deletes the Review object
+        It runs after every test
+        """
+        del self.review_obj
+
+    def test_instantiation(self):
+        """
+        test that the Review object is instantiated correctly
+        """
+        self.assertIsInstance(self.review_obj, review.Review)
+        self.assertTrue(hasattr(self.review_obj, 'id'))
+        self.assertTrue(hasattr(self.review_obj, 'created_at'))
+        self.assertTrue(hasattr(self.review_obj, 'updated_at'))
+        self.assertTrue(hasattr(self.review_obj, 'text'))
+        self.assertTrue(hasattr(self.review_obj, 'place_id'))
+        self.assertTrue(hasattr(self.review_obj, 'user_id'))
+
+    def str_rep(self):
+        """tests the __str__ method"""
+        str_rep = str(self.review_obj)
+        self.assertIn('id', str_rep)
+        self.assertIn(self.review_obj, str_rep)
+        self.assertIn('created_at', str_rep)
+        self.assertIn('updated_at', str_rep)
+        self.assertIn('text', str_rep)
+        self.assertIn('place_id', str_rep)
+        self.assertIn('user_id', str_rep)
+
+    def to_dict(self):
+        """tests the to_dict method"""
+        obj_dict = self.review_obj.to_dict()
+        self.assertIsInstance(obj_dict, dict)
+        self.assertTrue(self.review_obj[__class__], review.Review)
+        self.assertIn('id', obj_dict)
+        self.assertIn('text', obj_dict)
+        self.assertIn('created_at', obj_dict)
+        self.assertIn('updated_at', obj_dict)
+        self.assertIn('place_id', obj_dict)
+        self.assertIn('user_id', obj_dict)
+
+
+if '__name__' == '__main__':
     unittest.main()

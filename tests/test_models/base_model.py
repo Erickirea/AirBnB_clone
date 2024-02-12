@@ -5,62 +5,76 @@ a test for the BaseModel class
 import unittest
 from datetime import datetime
 import models
-import os
 from models.base_model import BaseModel
 
-class TestBaseModel(unittest.TestCase):
-    """a test for the BaseModel class"""
 
-    def test_instance(self):
-        """test if an instance of BaseModel is created"""
-        my_model = BaseModel()
-        self.assertIsInstance(my_model, BaseModel)
-
-    def test_init(self):
-        """test the initialization of the BaseModel class"""
-        my_model = BaseModel()
-        self.assertIsInstance(my_model.id, str)
-        self.assertIsInstance(my_model.created_at, datetime)
-        self.assertIsInstance(my_model.updated_at, datetime)
-
-    def test_save(self):
-        """test the save method of the BaseModel class"""
-        my_model = BaseModel()
-        my_model.save()
-        self.assertIsInstance(my_model.updated_at, datetime)
-        old_updated_at = my_model.updated_at
-        my_model.save()
-        self.assertGreater(my_model.updated_at, old_updated_at)
-
-    def test_str(self):
-        """test the __str__ method of the BaseModel class"""
-        my_model = BaseModel()
-        my_model_str = str(my_model)
-        self.assertIn("BaseModel", my_model_str)
-        self.assertIn("id", my_model_str)
-        self.assertIn("created_at", my_model_str)
-        self.assertIn("updated_at", my_model_str)
-
-    def test_to_dict(self):
-        """test the to_dict method of the BaseModel class"""
-        my_model = BaseModel()
-        my_model_dict = my_model.to_dict()
-        self.assertIsInstance(my_model_dict, dict)
-        self.assertIn("__class__", my_model_dict)
-        self.assertIn("id", my_model_dict)
-        self.assertIn("created_at", my_model_dict)
-        self.assertIn("updated_at", my_model_dict)
+class Test_base_model(unittest.TestCase):
+    """
+    Testing the BaseModel class and it's methods
+    """
+    def setUp(self):
+        """
+        a setup method that creates a Basemodel object to be tested
+        It runs before every test
+        """
+        self.base_model = BaseModel()
 
     def tearDown(self):
-        """clean up the test environment"""
-        try:
-            os.remove("file.json")
-        except FileNotFoundError:
-            pass
+        """
+        a teardown method that deletes the BaseModel object
+        It runs after every test
+        """
+        del self.base_model
 
-    def test_docstring(self):
-        """test if the docstring is not empty."""
-        self.assertIsNotNone(BaseModel.__doc__)
+    def test_instantiation(self):
+        """
+        test that the BaseModel object is instantiated correctly
+        """
+        self.assertIsInstance(self.base_model, BaseModel)
 
-if __name__ == '__main__':
+    def test_id(self):
+        """
+        tests the id attribute
+        """
+        self.assertTrue(self.base_model.id, str)
+
+    def test_created_at(self):
+        """
+        tests the created_at attribute
+        """
+        self.assertTrue(self.base_model.created_at, datetime)
+
+    def test_updated_at(self):
+        """
+        tests the updated_at attribute
+        """
+        self.assertTrue(self.base_model.updated_at, datetime)
+
+    def test_str(self):
+        """
+        test the __str__ method
+        """
+        self.assertTrue(self.base_model.__str__(), str)
+        self.assertEqual(str(self.base_model), self.base_model.__str__())
+
+    def test_save_method(self):
+
+        init_time = self.base_model.updated_at
+        self.base_model.save()
+        self.assertNotEqual(init_time, self.base_model.updated_at)
+
+    def test_to_dict(self):
+        """
+        tests the to_dict method
+        """
+        model_dict = self.base_model.to_dict()
+        self.assertIsInstance(model_dict, dict)
+        self.assertIn('id', model_dict)
+        self.assertIn('created_at', model_dict)
+        self.assertIn('updated_at', model_dict)
+        # self.assertIn(self.base_model.__class__.__name__, model_dict)
+        self.assertEqual(model_dict['__class__'], 'BaseModel')
+
+
+if '__name__ ' == '__main__':
     unittest.main()

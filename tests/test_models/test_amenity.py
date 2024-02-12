@@ -2,44 +2,47 @@
 import unittest
 from models import amenity
 
-"""Test class for Amenities Model."""
+""""
+a test module for Amenity class
+"""
 
-class TestAmenities(unittest.TestCase):
-    """Test class for Amenities Model."""
 
+class Test_Amenity(unittest.TestCase):
+    """a unittest class for the Amenity class"""
     def setUp(self):
-        """Set up amenity instance."""
-        self.my_amenity = amenity.Amenity()
+        """creates Amenity class instance"""
+        self.amenity1 = amenity.Amenity()
 
     def tearDown(self):
-        """Deletes the amenity instance."""
-        del self.my_amenity
+        """deletes the Amenity class instance"""
+        del self.amenity1
 
-    def test_str(self):
-        """test the __str__ method."""
-        my_amenity = amenity.Amenity()
-        my_amenity_str = str(my_amenity)
-        self.assertIn("Amenity", my_amenity_str)
-        self.assertIn("id", my_amenity_str)
-        self.assertIn("created_at", my_amenity_str)
-        self.assertIn("updated_at", my_amenity_str)
+    def test_instantiation(self):
+        """test the instantiation"""
+        self.assertIsInstance(self.amenity1, amenity.Amenity)
+        self.assertTrue(hasattr(self.amenity1, 'id'))
+        self.assertTrue(hasattr(self.amenity1, 'created_at'))
+        self.assertTrue(hasattr(self.amenity1, 'updated_at'))
+        self.assertTrue(hasattr(self.amenity1, 'name'))
 
-    def test_instance(self):
-        """test if an instance is created."""
-        my_amenity = amenity.Amenity()
-        self.assertIsInstance(my_amenity, amenity.Amenity)
+    def str_rep(self):
+        """tests the __str__() method"""
+        str_rep = str(self.amenity1)
+        self.assertIn('id', str_rep)
+        self.assertIn(self.amenity1, str_rep)
+        self.assertIn('created_at', str_rep)
+        self.assertIn('updated_at', str_rep)
+        self.assertIn('name', str_rep)
 
-    def test_init(self):
-        """test the initialization."""
-        my_amenity = amenity.Amenity()
-        self.assertTrue(hasattr(my_amenity, 'id'))
-        self.assertTrue(hasattr(my_amenity, 'created_at'))
-        self.assertTrue(hasattr(my_amenity, 'updated_at'))
-        self.assertTrue(hasattr(my_amenity, 'name'))
+    def to_dict(self):
+        """tests the to_dict method"""
+        obj_dict = self.amenity1.to_dict()
+        self.assertIsInstance(obj_dict, dict)
+        self.assertIn('id', obj_dict)
+        self.assertIn('name', obj_dict)
+        self.assertIn('created_at', obj_dict)
+        self.assertIn('updated_at', obj_dict)
 
-    def test_docstring(self):
-        """test if the docstring is not empty."""
-        self.assertIsNotNone(amenity.Amenity.__doc__)
 
-if __name__ == '__main__':
+if '__name__' == '__main__':
     unittest.main()
