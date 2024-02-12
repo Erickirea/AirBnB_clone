@@ -11,7 +11,6 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 
-
 class HBNBCommand(cmd.Cmd):
     """A command line interpreter class."""
     # All classes
@@ -223,7 +222,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             setattr(obj, attribute_name, attribute_value)
             obj.save()
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
