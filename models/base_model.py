@@ -2,7 +2,7 @@
 """A model that defines all common attributes."""
 import uuid
 from datetime import datetime
-import models #for task5
+import models
 
 
 class BaseModel:
@@ -29,6 +29,8 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
 
+        models.storage.new(self)
+
     def __str__(self):
         """Print the class_name id and dict in a specified format."""
         return ("[{}] ({}) {}"
@@ -37,7 +39,6 @@ class BaseModel:
     def save(self):
         """Update the public instance updated_at with current time."""
         self.updated_at = datetime.now()
-        models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
