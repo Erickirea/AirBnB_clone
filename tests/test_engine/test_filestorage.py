@@ -39,8 +39,6 @@ class Test_filestorage(unittest.TestCase):
         test the all() method
         """
         self.assertIsInstance(self.file_storage.all(), dict)
-        # self.assertEqual(self.file_storage.all(),
-        # self.file_storage.FileStorage.__objects)
 
     def test_new(self):
         """
